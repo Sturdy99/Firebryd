@@ -517,9 +517,7 @@ CONFIG_SWAP=n
 <<<<<<< HEAD
 =======
 
-#
 # Default frequencies
-#
 CONFIG_CPU_FREQ_SET_MIN_MAX=y
 CONFIG_CPU_FREQ_MAX=1512000
 CONFIG_CPU_FREQ_MIN=384000
@@ -550,4 +548,13 @@ CONFIG_TOUCHSCREEN_PREVENT_SLEEP=y
 # Sound Control
 CONFIG_SOUND_CONTROL_HAX_GPL=y
 CONFIG_SOUND_CONTROL_HAX_3_GPL=y
+<<<<<<< HEAD
 >>>>>>> d9cc516... Add Faux Sound Control
+=======
+
+# Fast Charge
+CONFIG_FORCE_FAST_CHARGE=y
+
+# BLX
+CONFIG_BLX=y
+>>>>>>> 0dd8ddc... Add BLX and Fastcharge
