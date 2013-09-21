@@ -1609,7 +1609,11 @@ config MSM_CPU_FREQ_SET_MIN_MAX
 config MSM_CPU_FREQ_MAX
 	int "Max CPU Frequency"
 	depends on MSM_CPU_FREQ_SET_MIN_MAX
+<<<<<<< HEAD
 	default 384000
+=======
+	default 1728000
+>>>>>>> 119a8bd... GPU OC 487.5Mhz
 
 config MSM_CPU_FREQ_MIN
 	int "Min CPU Frequency"
