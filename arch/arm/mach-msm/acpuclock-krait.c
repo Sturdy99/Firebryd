@@ -947,12 +947,17 @@ ssize_t acpuclk_get_vdd_levels_str(char *buf)
 {
 #define USERCONTROL_MIN_VDD		 750
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define USERCONTROL_MAX_VDD		1400
 #define NUM_FREQS			14
 =======
 #define USERCONTROL_MAX_VDD		1300
 #define NUM_FREQS			18
 >>>>>>> 586ea4a... Mako (absolute) Voltage control.
+=======
+#define USERCONTROL_MAX_VDD		1400
+#define NUM_FREQS			15
+>>>>>>> fc39514... lower dig and mem voltages, match regulator range tofixed voltage control
 
 ssize_t acpuclk_get_vdd_levels_str(char *buf) {
 
