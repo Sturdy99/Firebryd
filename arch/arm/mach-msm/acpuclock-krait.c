@@ -925,6 +925,106 @@ static void __init bus_init(const struct l2_level *l2_level)
 		dev_err(drv.dev, "initial bandwidth req failed (%d)\n", ret);
 }
 
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_USERSPACE_VOLTAGE_CONTROL
+
+#define MAX_VDD 1300
+#define MIN_VDD 700
+
+int get_num_freqs(void)
+{
+	int i;
+	int count = 0;
+	
+	for (i = 0; drv.acpu_freq_tbl[i].use_for_scaling; i++)
+		count++;
+		
+	return count;
+}
+
+ssize_t acpuclk_get_vdd_levels_str(char *buf) 
+{
+#define USERCONTROL_MIN_VDD		 750
+#define USERCONTROL_MAX_VDD		1400
+#define NUM_FREQS			14
+
+ssize_t acpuclk_get_vdd_levels_str(char *buf) {
+
+	int i, len = 0;
+
+	if (buf) {
+		for (i = 0; drv.acpu_freq_tbl[i].speed.khz; i++) {
+			if (drv.acpu_freq_tbl[i].use_for_scaling) {
+				len += sprintf(buf + len, "%lumhz: %i mV\n", drv.acpu_freq_tbl[i].speed.khz/1000,
+						drv.acpu_freq_tbl[i].vdd_core/1000 );
+			}
+		}
+	}
+	return len;
+}
+
+ssize_t acpuclk_set_vdd(char *buf) 
+{
+	unsigned int cur_volt;
+	char size_cur[get_num_freqs()];
+	int i;
+    int ret = 0;
+
+	if (!buf)
+		return -EINVAL;
+		
+	for (i = 0; i < ARRAY_SIZE(size_cur); i++) {
+		ret = sscanf(buf, "%d", &cur_volt);
+
+		if (ret != 1)
+			return -EINVAL;
+			
+		if (cur_volt > MAX_VDD) {
+			pr_info("Voltage Control: new volt is %d and its higher than %d so we set it to MAX_VDD(%d).\n", cur_volt, MAX_VDD, MAX_VDD);
+			cur_volt = MAX_VDD;
+		} else if (cur_volt < MIN_VDD) {
+			pr_info("Voltage Control: new volt is %d and its lower than %d so we set it to MIN_VDD(%d).\n", cur_volt, MIN_VDD, MIN_VDD);
+			cur_volt = MIN_VDD;
+		}	
+				
+		drv.acpu_freq_tbl[i].vdd_core = cur_volt*1000;
+			
+		ret = sscanf(buf, "%s", size_cur);
+		buf += (strlen(size_cur)+1);
+ssize_t acpuclk_set_vdd(char *buf) {
+
+        int i = 0;
+        unsigned long volt_cur[NUM_FREQS] = {0};
+        int ret = 0;
+
+	if (buf) {
+//		ret = sscanf(buf, "%lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu",
+		ret = sscanf(buf, "%lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu",
+				&volt_cur[0], &volt_cur[1], &volt_cur[2], &volt_cur[3], &volt_cur[4], &volt_cur[5], &volt_cur[6], &volt_cur[7], &volt_cur[8],
+				&volt_cur[9], &volt_cur[10], &volt_cur[11], &volt_cur[12], &volt_cur[13]); //, &volt_cur[14], &volt_cur[15], &volt_cur[16], &volt_cur[17]);
+
+		if (ret != NUM_FREQS)
+			return -EINVAL;
+
+		for(i = 0; i < NUM_FREQS; i++) {
+			if(drv.acpu_freq_tbl[i].speed.khz != 0) {
+
+				if (volt_cur[i] < (unsigned long) USERCONTROL_MIN_VDD)
+					volt_cur[i] = (unsigned long) USERCONTROL_MIN_VDD;
+                                if (volt_cur[i] > (unsigned long) USERCONTROL_MAX_VDD)
+                                        volt_cur[i] = (unsigned long) USERCONTROL_MAX_VDD;
+
+				drv.acpu_freq_tbl[i].vdd_core = volt_cur[i]*1000;
+
+			}
+		}
+	}
+	return ret;
+}
+#endif
+
+>>>>>>> 11e2465... limiting to 1728 for a stable kernel
 #ifdef CONFIG_CPU_FREQ_MSM
 static struct cpufreq_frequency_table freq_table[NR_CPUS][35];
 
