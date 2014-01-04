@@ -378,6 +378,11 @@ static ssize_t skcipher_sendpage(struct socket *sock, struct page *page,
 	struct skcipher_sg_list *sgl;
 	int err = -EINVAL;
 
+<<<<<<< HEAD
+=======
+	if (flags & MSG_SENDPAGE_NOTLAST)
+		flags |= MSG_MORE;
+>>>>>>> c9da737... Additional GCC 4.8 patches
 	lock_sock(sk);
 	if (!ctx->more && ctx->used)
 		goto unlock;
