@@ -4,34 +4,12 @@
 # create a compressed vmlinuz image from the original vmlinux
 #
 
-<<<<<<< HEAD
-OBJS                =
-=======
 OBJS		=
->>>>>>> parent of 39afa3f... Google GCC 4.8 patches
 
 # Ensure that MMCIF loader code appears early in the image
 # to minimise that number of bocks that have to be read in
 # order to load it.
 ifeq ($(CONFIG_ZBOOT_ROM_MMCIF),y)
-<<<<<<< HEAD
-OBJS                += mmcif-sh7372.o
-endif
-
-# Ensure that SDHI loader code appears early in the image
-# to minimise that number of bocks that have to be read in
-# order to load it.
-ifeq ($(CONFIG_ZBOOT_ROM_SH_MOBILE_SDHI),y)
-OBJS                += sdhi-shmobile.o
-OBJS                += sdhi-sh7372.o
-endif
-
-AFLAGS_head.o += -DTEXT_OFFSET=$(TEXT_OFFSET)
-HEAD        = head.o
-OBJS        += misc.o decompress.o
-FONTC        = $(srctree)/drivers/video/console/font_acorn_8x8.c
-
-=======
 OBJS		+= mmcif-sh7372.o
 endif
 
@@ -48,53 +26,52 @@ HEAD	= head.o
 OBJS	+= misc.o decompress.o
 FONTC	= $(srctree)/drivers/video/console/font_acorn_8x8.c
 
->>>>>>> parent of 39afa3f... Google GCC 4.8 patches
 # string library code (-Os is enforced to keep it much smaller)
-OBJS                += string.o
-CFLAGS_string.o        := -Os
+OBJS		+= string.o
+CFLAGS_string.o	:= -Os
 
 #
 # Architecture dependencies
 #
 ifeq ($(CONFIG_ARCH_ACORN),y)
-OBJS                += ll_char_wr.o font.o
+OBJS		+= ll_char_wr.o font.o
 endif
 
 ifeq ($(CONFIG_ARCH_SHARK),y)
-OBJS                += head-shark.o ofw-shark.o
+OBJS		+= head-shark.o ofw-shark.o
 endif
 
 ifeq ($(CONFIG_ARCH_P720T),y)
 # Borrow this code from SA1100
-OBJS                += head-sa1100.o
+OBJS		+= head-sa1100.o
 endif
 
 ifeq ($(CONFIG_ARCH_SA1100),y)
-OBJS                += head-sa1100.o
+OBJS		+= head-sa1100.o
 endif
 
 ifeq ($(CONFIG_ARCH_VT8500),y)
-OBJS                += head-vt8500.o
+OBJS		+= head-vt8500.o
 endif
 
 ifeq ($(CONFIG_CPU_XSCALE),y)
-OBJS                += head-xscale.o
+OBJS		+= head-xscale.o
 endif
 
 ifeq ($(CONFIG_PXA_SHARPSL_DETECT_MACH_ID),y)
-OBJS                += head-sharpsl.o
+OBJS		+= head-sharpsl.o
 endif
 
 ifeq ($(CONFIG_CPU_ENDIAN_BE32),y)
 ifeq ($(CONFIG_CPU_CP15),y)
-OBJS                += big-endian.o
+OBJS		+= big-endian.o
 else
 # The endian should be set by h/w design.
 endif
 endif
 
 ifeq ($(CONFIG_ARCH_SHMOBILE),y)
-OBJS                += head-shmobile.o
+OBJS		+= head-shmobile.o
 endif
 
 #
@@ -103,14 +80,14 @@ endif
 # from ROM or Flash must define ZTEXTADDR (preferably via the config)
 # FIXME: Previous assignment to ztextaddr-y is lost here. See SHARK
 ifeq ($(CONFIG_ZBOOT_ROM),y)
-ZTEXTADDR        := $(CONFIG_ZBOOT_ROM_TEXT)
-ZBSSADDR        := $(CONFIG_ZBOOT_ROM_BSS)
+ZTEXTADDR	:= $(CONFIG_ZBOOT_ROM_TEXT)
+ZBSSADDR	:= $(CONFIG_ZBOOT_ROM_BSS)
 else
-ZTEXTADDR        := 0
-ZBSSADDR        := ALIGN(8)
+ZTEXTADDR	:= 0
+ZBSSADDR	:= ALIGN(8)
 endif
 
-SEDFLAGS        = s/TEXT_START/$(ZTEXTADDR)/;s/BSS_START/$(ZBSSADDR)/
+SEDFLAGS	= s/TEXT_START/$(ZTEXTADDR)/;s/BSS_START/$(ZBSSADDR)/
 
 suffix_$(CONFIG_KERNEL_GZIP) = gzip
 suffix_$(CONFIG_KERNEL_LZO)  = lzo
@@ -119,10 +96,10 @@ suffix_$(CONFIG_KERNEL_XZ)   = xzkern
 
 # Borrowed libfdt files for the ATAG compatibility mode
 
-libfdt                := fdt_rw.c fdt_ro.c fdt_wip.c fdt.c
-libfdt_hdrs        := fdt.h libfdt.h libfdt_internal.h
+libfdt		:= fdt_rw.c fdt_ro.c fdt_wip.c fdt.c
+libfdt_hdrs	:= fdt.h libfdt.h libfdt_internal.h
 
-libfdt_objs        := $(addsuffix .o, $(basename $(libfdt)))
+libfdt_objs	:= $(addsuffix .o, $(basename $(libfdt)))
 
 $(addprefix $(obj)/,$(libfdt) $(libfdt_hdrs)): $(obj)/%: $(srctree)/scripts/dtc/libfdt/%
 	$(call cmd,shipped)
@@ -131,19 +108,10 @@ $(addprefix $(obj)/,$(libfdt_objs) atags_to_fdt.o): \
 	$(addprefix $(obj)/,$(libfdt_hdrs))
 
 ifeq ($(CONFIG_ARM_ATAG_DTB_COMPAT),y)
-OBJS        += $(libfdt_objs) atags_to_fdt.o
+OBJS	+= $(libfdt_objs) atags_to_fdt.o
 endif
 
 targets       := vmlinux vmlinux.lds \
-<<<<<<< HEAD
-                 piggy.$(suffix_y) piggy.$(suffix_y).o \
-                 lib1funcs.o lib1funcs.S ashldi3.o ashldi3.S \
-                 font.o font.c head.o misc.o $(OBJS)
-
-# Make sure files are removed during clean
-extra-y       += piggy.gzip piggy.lzo piggy.lzma piggy.xzkern \
-                 lib1funcs.S ashldi3.S $(libfdt) $(libfdt_hdrs)
-=======
 		 piggy.$(suffix_y) piggy.$(suffix_y).o \
 		 lib1funcs.o lib1funcs.S ashldi3.o ashldi3.S \
 		 font.o font.c head.o misc.o $(OBJS)
@@ -151,7 +119,6 @@ extra-y       += piggy.gzip piggy.lzo piggy.lzma piggy.xzkern \
 # Make sure files are removed during clean
 extra-y       += piggy.gzip piggy.lzo piggy.lzma piggy.xzkern \
 		 lib1funcs.S ashldi3.S $(libfdt) $(libfdt_hdrs)
->>>>>>> parent of 39afa3f... Google GCC 4.8 patches
 
 ifeq ($(CONFIG_FUNCTION_TRACER),y)
 ORIG_CFLAGS := $(KBUILD_CFLAGS)
@@ -163,11 +130,7 @@ asflags-y := -Wa,-march=all
 
 # Supply kernel BSS size to the decompressor via a linker symbol.
 KBSS_SZ = $(shell $(CROSS_COMPILE)size $(obj)/../../../../vmlinux | \
-<<<<<<< HEAD
-                awk 'END{print $$3}')
-=======
 		awk 'END{print $$3}')
->>>>>>> parent of 39afa3f... Google GCC 4.8 patches
 LDFLAGS_vmlinux = --defsym _kernel_bss_size=$(KBSS_SZ)
 # Supply ZRELADDR to the decompressor via a linker symbol.
 ifneq ($(CONFIG_AUTO_ZRELADDR),y)
@@ -212,15 +175,6 @@ bad_syms=$$($(CROSS_COMPILE)nm $@ | sed -n 's/^.\{8\} [bc] \(.*\)/\1/p') && \
 
 check_for_multiple_zreladdr = \
 if [ $(words $(ZRELADDR)) -gt 1 -a "$(CONFIG_AUTO_ZRELADDR)" = "" ]; then \
-<<<<<<< HEAD
-        echo 'multiple zreladdrs: $(ZRELADDR)'; \
-        echo 'This needs CONFIG_AUTO_ZRELADDR to be set'; \
-        false; \
-fi
-
-$(obj)/vmlinux: $(obj)/vmlinux.lds $(obj)/$(HEAD) $(obj)/piggy.$(suffix_y).o \
-                $(addprefix $(obj)/, $(OBJS)) $(lib1funcs) $(ashldi3) FORCE
-=======
 	echo 'multiple zreladdrs: $(ZRELADDR)'; \
 	echo 'This needs CONFIG_AUTO_ZRELADDR to be set'; \
 	false; \
@@ -228,7 +182,6 @@ fi
 
 $(obj)/vmlinux: $(obj)/vmlinux.lds $(obj)/$(HEAD) $(obj)/piggy.$(suffix_y).o \
 		$(addprefix $(obj)/, $(OBJS)) $(lib1funcs) $(ashldi3) FORCE
->>>>>>> parent of 39afa3f... Google GCC 4.8 patches
 	@$(check_for_multiple_zreladdr)
 	$(call if_changed,ld)
 	@$(check_for_bad_syms)

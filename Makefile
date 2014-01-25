@@ -244,17 +244,17 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 	  else if [ -x /bin/bash ]; then echo /bin/bash; \
 	  else echo sh; fi ; fi)
 
-<<<<<<< HEAD
+
 HOSTCC       = $(CCACHE) gcc
 HOSTCXX      = $(CCACHE) g++
 HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O3 -fomit-frame-pointer
 HOSTCXXFLAGS = -O3
-=======
+
 HOSTCC       = gcc
 HOSTCXX      = g++
 HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer
 HOSTCXXFLAGS = -O2
->>>>>>> parent of 39afa3f... Google GCC 4.8 patches
+
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -573,13 +573,13 @@ all: vmlinux
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
 else
-<<<<<<< HEAD
+
 KBUILD_CFLAGS	+= -O3
 KBUILD_CFLAGS   += $(call cc-disable-warning,maybe-uninitialized) -fno-inline-functions
 KBUILD_CFLAGS   += $(call cc-disable-warning,array-bounds)
-=======
+
 KBUILD_CFLAGS	+= -O2
->>>>>>> parent of 39afa3f... Google GCC 4.8 patches
+
 endif
 
 include $(srctree)/arch/$(SRCARCH)/Makefile
