@@ -2741,6 +2741,7 @@ static int finish_port_resume(struct usb_device *udev)
  */
 int usb_port_resume(struct usb_device *udev, pm_message_t msg)
 {
+<<<<<<< HEAD
 	struct usb_hub	*hub = hdev_to_hub(udev->parent);
 	int		port1 = udev->portnum;
 	int		status;
@@ -2781,6 +2782,48 @@ int usb_port_resume(struct usb_device *udev, pm_message_t msg)
 		/* TRSMRCY = 10 msec */
 		msleep(10);
 	}
+=======
+        struct usb_hub        *hub = hdev_to_hub(udev->parent);
+        int                port1 = udev->portnum;
+        int                status;
+        u16                portchange, portstatus;
+
+        /* Skip the initial Clear-Suspend step for a remote wakeup */
+        status = hub_port_status(hub, port1, &portstatus, &portchange);
+        if (status == 0 && !port_is_suspended(hub, portstatus))
+                goto SuspendCleared;
+
+        // dev_dbg(hub->intfdev, "resume port %d\n", port1);
+
+        set_bit(port1, hub->busy_bits);
+
+        /* see 7.1.7.7; affects power usage, but not budgeting */
+        if (hub_is_superspeed(hub->hdev))
+                status = set_port_feature(hub->hdev,
+                                port1 | (USB_SS_PORT_LS_U0 << 3),
+                                USB_PORT_FEAT_LINK_STATE);
+        else
+                status = clear_port_feature(hub->hdev,
+                                port1, USB_PORT_FEAT_SUSPEND);
+        if (status) {
+                dev_dbg(hub->intfdev, "can't resume port %d, status %d\n",
+                                port1, status);
+        } else {
+                /* drive resume for at least 20 msec */
+                dev_dbg(&udev->dev, "usb %sresume\n",
+                                (PMSG_IS_AUTO(msg) ? "auto-" : ""));
+                msleep(25);
+
+                /* Virtual root hubs can trigger on GET_PORT_STATUS to
+                 * stop resume signaling.  Then finish the resume
+                 * sequence.
+                 */
+                status = hub_port_status(hub, port1, &portstatus, &portchange);
+
+                /* TRSMRCY = 10 msec */
+                msleep(10);
+        }
+>>>>>>> parent of f080cb5... Additional GCC 4.8 Patches and Make: gnome_mako_defconfig
 
  SuspendCleared:
 	if (status == 0) {
