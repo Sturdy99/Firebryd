@@ -100,7 +100,7 @@ static struct scalable scalable[] __initdata = {
  * We rely on the RPM rounding requests up here.
 */
 static struct msm_bus_paths bw_level_tbl[] __initdata = {
-#ifdef CONFIG GPU_OVERCLOCK
+#ifdef CONFIG_GPU_OVERCLOCK
 	[0] =  BW_MBPS(640), /* At least  80 MHz on bus. */
 	[1] = BW_MBPS(1064), /* At least 133 MHz on bus. */
 	[2] = BW_MBPS(1600), /* At least 200 MHz on bus. */
@@ -127,7 +127,7 @@ static struct msm_bus_scale_pdata bus_scale_data __initdata = {
 
 
 static struct l2_level l2_freq_tbl[] __initdata = {
-<<<<<<< HEAD
+
 	[0]  = { {  384000, PLL_8, 0, 0x00 },  950000, 1050000, 1 },
 	[1]  = { {  432000, HFPLL, 2, 0x20 }, 1050000, 1050000, 2 },
 	[2]  = { {  486000, HFPLL, 2, 0x24 }, 1050000, 1050000, 2 },
@@ -143,10 +143,7 @@ static struct l2_level l2_freq_tbl[] __initdata = {
 	[12] = { { 1026000, HFPLL, 1, 0x26 }, 1150000, 1150000, 5 },
 	[13] = { { 1080000, HFPLL, 1, 0x28 }, 1150000, 1150000, 5 },
 	[14] = { { 1134000, HFPLL, 1, 0x2A }, 1150000, 1150000, 5 },
-<<<<<<< HEAD
-=======
-=======
->>>>>>> fc39514... lower dig and mem voltages, match regulator range tofixed voltage control
+
 	[0]  = { {  384000, PLL_8, 0, 0x00 },  950000, 1000000, 1 },
 	[1]  = { {  432000, HFPLL, 2, 0x20 }, 1000000, 1000000, 2 },
 	[2]  = { {  486000, HFPLL, 2, 0x24 }, 1000000, 1000000, 2 },
@@ -166,10 +163,7 @@ static struct l2_level l2_freq_tbl[] __initdata = {
 	[16] = { { 1242000, HFPLL, 1, 0x2E }, 1100000, 1100000, 5 },
 	[17] = { { 1296000, HFPLL, 1, 0x30 }, 1100000, 1100000, 5 },
 	[18] = { { 1350000, HFPLL, 1, 0x32 }, 1100000, 1100000, 5 },
-<<<<<<< HEAD
->>>>>>> 2bd98d5... This adds limited OC with limited freq steps. The required changes to make that work.
-=======
->>>>>>> fc39514... lower dig and mem voltages, match regulator range tofixed voltage control
+
 	{ }
 };
 
@@ -181,7 +175,7 @@ static struct acpu_level tbl_slow[] __initdata = {
 	{ 1, {   810000, HFPLL, 1, 0x1E }, L2(5),  1075000 },
 	{ 1, {   918000, HFPLL, 1, 0x22 }, L2(5),  1100000 },
 	{ 1, {  1026000, HFPLL, 1, 0x26 }, L2(5),  1125000 },
-<<<<<<< HEAD
+
 	{ 0, {  1080000, HFPLL, 1, 0x28 }, L2(14), 1175000 },
 	{ 1, {  1134000, HFPLL, 1, 0x2A }, L2(14), 1175000 },
 	{ 0, {  1188000, HFPLL, 1, 0x2C }, L2(14), 1200000 },
@@ -191,13 +185,7 @@ static struct acpu_level tbl_slow[] __initdata = {
 	{ 0, {  1404000, HFPLL, 1, 0x34 }, L2(14), 1237500 },
 	{ 1, {  1458000, HFPLL, 1, 0x36 }, L2(14), 1237500 },
 	{ 1, {  1512000, HFPLL, 1, 0x38 }, L2(14), 1250000 },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 2bd98d5... This adds limited OC with limited freq steps. The required changes to make that work.
-=======
->>>>>>> fc39514... lower dig and mem voltages, match regulator range tofixed voltage control
+
 	{ 1, {  1134000, HFPLL, 1, 0x2A }, L2(16), 1175000 },
 	{ 1, {  1242000, HFPLL, 1, 0x2E }, L2(16), 1200000 },
 	{ 1, {  1350000, HFPLL, 1, 0x32 }, L2(16), 1225000 },
@@ -205,16 +193,15 @@ static struct acpu_level tbl_slow[] __initdata = {
 	{ 1, {  1512000, HFPLL, 1, 0x38 }, L2(16), 1250000 },
 	{ 1, {  1620000, HFPLL, 1, 0x3C }, L2(16), 1275000 },
 	{ 1, {  1728000, HFPLL, 1, 0x40 }, L2(16), 1300000 },
-<<<<<<< HEAD
+
 //	{ 1, {  1836000, HFPLL, 1, 0x44 }, L2(16), 1312500 },
 //	{ 1, {  1944000, HFPLL, 1, 0x48 }, L2(14), 1325000 },
 //	{ 1, {  2052000, HFPLL, 1, 0x4C }, L2(14), 1337500 },
->>>>>>> 11e2465... limiting to 1728 for a stable kernel
-=======
+
 	{ 1, {  1836000, HFPLL, 1, 0x44 }, L2(16), 1312500 },
 //	{ 1, {  1944000, HFPLL, 1, 0x48 }, L2(14), 1325000 },
 //	{ 1, {  2052000, HFPLL, 1, 0x4C }, L2(14), 1337500 },
->>>>>>> fc39514... lower dig and mem voltages, match regulator range tofixed voltage control
+
 	{ 0, { 0 } }
 };
 
@@ -226,7 +213,7 @@ static struct acpu_level tbl_nom[] __initdata = {
 	{ 1, {   810000, HFPLL, 1, 0x1E }, L2(5),  1025000 },
 	{ 1, {   918000, HFPLL, 1, 0x22 }, L2(5),  1050000 },
 	{ 1, {  1026000, HFPLL, 1, 0x26 }, L2(5),  1075000 },
-<<<<<<< HEAD
+
 	{ 0, {  1080000, HFPLL, 1, 0x28 }, L2(14), 1125000 },
 	{ 1, {  1134000, HFPLL, 1, 0x2A }, L2(14), 1125000 },
 	{ 0, {  1188000, HFPLL, 1, 0x2C }, L2(14), 1150000 },
@@ -236,13 +223,7 @@ static struct acpu_level tbl_nom[] __initdata = {
 	{ 0, {  1404000, HFPLL, 1, 0x34 }, L2(14), 1187500 },
 	{ 1, {  1458000, HFPLL, 1, 0x36 }, L2(14), 1187500 },
 	{ 1, {  1512000, HFPLL, 1, 0x38 }, L2(14), 1200000 },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 2bd98d5... This adds limited OC with limited freq steps. The required changes to make that work.
-=======
->>>>>>> fc39514... lower dig and mem voltages, match regulator range tofixed voltage control
+
 	{ 1, {  1134000, HFPLL, 1, 0x2A }, L2(16), 1125000 },
 	{ 1, {  1242000, HFPLL, 1, 0x2E }, L2(16), 1150000 },
 	{ 1, {  1350000, HFPLL, 1, 0x32 }, L2(16), 1175000 },
@@ -250,16 +231,15 @@ static struct acpu_level tbl_nom[] __initdata = {
 	{ 1, {  1512000, HFPLL, 1, 0x38 }, L2(16), 1200000 },
 	{ 1, {  1620000, HFPLL, 1, 0x3C }, L2(16), 1225000 },
 	{ 1, {  1728000, HFPLL, 1, 0x40 }, L2(16), 1250000 },
-<<<<<<< HEAD
+
 //	{ 1, {  1836000, HFPLL, 1, 0x44 }, L2(16), 1262500 },
 //	{ 1, {  1944000, HFPLL, 1, 0x48 }, L2(14), 1275000 },
 //	{ 1, {  2052000, HFPLL, 1, 0x4C }, L2(14), 1287500 },
->>>>>>> 11e2465... limiting to 1728 for a stable kernel
-=======
+
 	{ 1, {  1836000, HFPLL, 1, 0x44 }, L2(16), 1262500 },
 //	{ 1, {  1944000, HFPLL, 1, 0x48 }, L2(14), 1275000 },
 //	{ 1, {  2052000, HFPLL, 1, 0x4C }, L2(14), 1287500 },
->>>>>>> fc39514... lower dig and mem voltages, match regulator range tofixed voltage control
+
 	{ 0, { 0 } }
 };
 
@@ -271,7 +251,7 @@ static struct acpu_level tbl_fast[] __initdata = {
 	{ 1, {   810000, HFPLL, 1, 0x1E }, L2(5),   975000 },
 	{ 1, {   918000, HFPLL, 1, 0x22 }, L2(5),  1000000 },
 	{ 1, {  1026000, HFPLL, 1, 0x26 }, L2(5),  1025000 },
-<<<<<<< HEAD
+
 	{ 0, {  1080000, HFPLL, 1, 0x28 }, L2(14), 1075000 },
 	{ 1, {  1134000, HFPLL, 1, 0x2A }, L2(14), 1075000 },
 	{ 0, {  1188000, HFPLL, 1, 0x2C }, L2(14), 1100000 },
@@ -281,13 +261,7 @@ static struct acpu_level tbl_fast[] __initdata = {
 	{ 0, {  1404000, HFPLL, 1, 0x34 }, L2(14), 1137500 },
 	{ 1, {  1458000, HFPLL, 1, 0x36 }, L2(14), 1137500 },
 	{ 1, {  1512000, HFPLL, 1, 0x38 }, L2(14), 1150000 },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 2bd98d5... This adds limited OC with limited freq steps. The required changes to make that work.
-=======
->>>>>>> fc39514... lower dig and mem voltages, match regulator range tofixed voltage control
+
 	{ 1, {  1134000, HFPLL, 1, 0x2A }, L2(16), 1075000 },
 	{ 1, {  1242000, HFPLL, 1, 0x2E }, L2(16), 1100000 },
 	{ 1, {  1350000, HFPLL, 1, 0x32 }, L2(16), 1125000 },
@@ -295,16 +269,15 @@ static struct acpu_level tbl_fast[] __initdata = {
 	{ 1, {  1512000, HFPLL, 1, 0x38 }, L2(16), 1150000 },
 	{ 1, {  1620000, HFPLL, 1, 0x3C }, L2(16), 1175000 },
 	{ 1, {  1728000, HFPLL, 1, 0x40 }, L2(16), 1200000 },
-<<<<<<< HEAD
+
 //	{ 1, {  1836000, HFPLL, 1, 0x44 }, L2(16), 1212500 },
 //	{ 1, {  1944000, HFPLL, 1, 0x48 }, L2(14), 1225000 },
 //	{ 1, {  2052000, HFPLL, 1, 0x4C }, L2(14), 1237500 },
->>>>>>> 11e2465... limiting to 1728 for a stable kernel
-=======
+
 	{ 1, {  1836000, HFPLL, 1, 0x44 }, L2(16), 1212500 },
 //	{ 1, {  1944000, HFPLL, 1, 0x48 }, L2(14), 1225000 },
 //	{ 1, {  2052000, HFPLL, 1, 0x4C }, L2(14), 1237500 },
->>>>>>> fc39514... lower dig and mem voltages, match regulator range tofixed voltage control
+
 	{ 0, { 0 } }
 };
 
@@ -316,7 +289,7 @@ static struct acpu_level tbl_faster[] __initdata = {
 	{ 1, {   810000, HFPLL, 1, 0x1E }, L2(5),   962500 },
 	{ 1, {   918000, HFPLL, 1, 0x22 }, L2(5),   975000 },
 	{ 1, {  1026000, HFPLL, 1, 0x26 }, L2(5),  1000000 },
-<<<<<<< HEAD
+
 	{ 0, {  1080000, HFPLL, 1, 0x28 }, L2(14), 1050000 },
 	{ 1, {  1134000, HFPLL, 1, 0x2A }, L2(14), 1050000 },
 	{ 0, {  1188000, HFPLL, 1, 0x2C }, L2(14), 1075000 },
@@ -326,13 +299,7 @@ static struct acpu_level tbl_faster[] __initdata = {
 	{ 0, {  1404000, HFPLL, 1, 0x34 }, L2(14), 1112500 },
 	{ 1, {  1458000, HFPLL, 1, 0x36 }, L2(14), 1112500 },
 	{ 1, {  1512000, HFPLL, 1, 0x38 }, L2(14), 1125000 },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 2bd98d5... This adds limited OC with limited freq steps. The required changes to make that work.
-=======
->>>>>>> fc39514... lower dig and mem voltages, match regulator range tofixed voltage control
+
 	{ 1, {  1134000, HFPLL, 1, 0x2A }, L2(16), 1050000 },
 	{ 1, {  1242000, HFPLL, 1, 0x2E }, L2(16), 1075000 },
 	{ 1, {  1350000, HFPLL, 1, 0x32 }, L2(16), 1100000 },
@@ -340,16 +307,15 @@ static struct acpu_level tbl_faster[] __initdata = {
 	{ 1, {  1512000, HFPLL, 1, 0x38 }, L2(16), 1125000 },
 	{ 1, {  1620000, HFPLL, 1, 0x3C }, L2(16), 1150000 },
 	{ 1, {  1728000, HFPLL, 1, 0x40 }, L2(16), 1175000 },
-<<<<<<< HEAD
+
 //	{ 1, {  1836000, HFPLL, 1, 0x44 }, L2(16), 1187500 },
 //	{ 1, {  1944000, HFPLL, 1, 0x48 }, L2(14), 1200000 },
 //	{ 1, {  2052000, HFPLL, 1, 0x4C }, L2(14), 1212500 },
->>>>>>> 11e2465... limiting to 1728 for a stable kernel
-=======
+
 	{ 1, {  1836000, HFPLL, 1, 0x44 }, L2(16), 1187500 },
 //	{ 1, {  1944000, HFPLL, 1, 0x48 }, L2(14), 1200000 },
 //	{ 1, {  2052000, HFPLL, 1, 0x4C }, L2(14), 1212500 },
->>>>>>> fc39514... lower dig and mem voltages, match regulator range tofixed voltage control
+
 	{ 0, { 0 } }
 };
 
