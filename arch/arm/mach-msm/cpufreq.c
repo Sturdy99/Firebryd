@@ -195,7 +195,8 @@ EXPORT_SYMBOL(msm_cpufreq_set_freq_limits);
 static int __cpuinit msm_cpufreq_init(struct cpufreq_policy *policy)
 {
 	int cur_freq;
-	int boot_Freq = 1026000;
+	int boot_Freq = 1512000;
+
 	int index;
 	struct cpufreq_frequency_table *table;
 
@@ -244,6 +245,7 @@ static int __cpuinit msm_cpufreq_init(struct cpufreq_policy *policy)
 
 	policy->cur = cur_freq;
 	policy->max = boot_Freq;
+
 
 	policy->cpuinfo.transition_latency =
 		acpuclk_get_switch_time() * NSEC_PER_USEC;
